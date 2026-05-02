@@ -1,0 +1,93 @@
+usuario:
+- id
+- name
+- birthday
+- token?
+- email
+- deletedAt
+- createAt
+- updatedAt
+- goal?
+- 
+
+exerciSE:
+- id
+- name
+- description
+- muscle group
+- muscle sub group
+- type
+- url_video
+- url_image
+- level
+
+exerciseSession:
+- id
+- exerciseId
+- userId
+- 
+
+trainingSession:
+- id
+- userId
+- execiceSessionId
+- totalReps
+- totalSeries
+- time
+
+
+treined:
+- id
+- date
+- hour
+- userId
+- 
+
+
+[ training ]
+- id
+- user_id
+- name
+- description
+        │
+        │ 1:N
+        ▼
+[ training_exercise ]
+- id
+- training_id
+- exercise_id
+- order
+        │
+        │ 1:N
+        ▼
+[ training_exercise_series ]
+- id
+- training_exercise_id
+- number
+- reps
+- weight
+
+
+[ training_session ]
+- id
+- user_id
+- training_id
+- date
+- duration
+        │
+        │ 1:N
+        ▼
+[ exercise_session ]
+- id
+- training_session_id
+- exercise_id
+- order
+        │
+        │ 1:N
+        ▼
+[ series ]
+- id
+- exercise_session_id
+- number
+- reps
+- weight

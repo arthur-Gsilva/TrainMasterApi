@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TrainMaster.API/TrainMaster.API.csproj" />
+  <Project Path="TrainMaster.Application/TrainMaster.Application.csproj" />
+  <Project Path="TrainMaster.Domain/TrainMaster.Domain.csproj" />
+  <Project Path="TrainMaster.Infrastructure/TrainMaster.Infrastructure.csproj" />
+</Solution>
