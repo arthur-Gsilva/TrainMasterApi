@@ -4,10 +4,10 @@ POST {{TrainMaster.API_HostAddress}}/api/auth/register
 Content-Type: application/json
 
 {
-  "name": "João Silva",
-  "email": "joao@email.com",
+  "name": "Leticia Alves",
+  "email": "leticia@email.com",
   "password": "Senha@123",
-  "birthday": "2005-07-20T00:00:00Z",
+  "birthday": "2005-07-10T00:00:00Z",
   "goal": 1
 }
 

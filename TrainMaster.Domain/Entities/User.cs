@@ -18,6 +18,7 @@ public class User : BaseEntity
     public string? RefreshToken { get; private set; }
     public DateTime? RefreshTokenExpiresAt { get; private set; }
 
+    private User() { } 
 
     public static User Create(string name, string email, string password, DateTime birthday, UserGoal goal)
     {
