@@ -21,6 +21,7 @@ public record AuthResponse(
     Guid UserId,
     string Name,
     string Email,
+    string Role,
     string AccessToken,
     DateTime AccessTokenExpiresAt
 );

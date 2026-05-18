@@ -20,3 +20,34 @@ Content-Type: application/json
   "email": "joao@email.com",
   "password": "Senha@123"
 }
+
+###
+
+GET {{TrainMaster.API_HostAddress}}/api/subgroup/9a75a219-7ac4-47d6-9b16-a004fb7797da
+
+###
+
+GET {{TrainMaster.API_HostAddress}}/api/subgroup
+
+###
+
+POST {{TrainMaster.API_HostAddress}}/api/SubGroup
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjgyNTg4NTQ4LTY1OGQtNDhhMS1iMWNmLTkwY2ExMDAzZGYxMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJKb8OjbyBTaWx2YSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImpvYW9AZW1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJqdGkiOiI5MzQ0MGMxNC0yNTcyLTRlNDItODg0My0zN2FkMzgwNGFhMjAiLCJuYmYiOjE3Nzg2OTk1OTYsImV4cCI6MTc3ODcwMDQ5NiwiaXNzIjoiQ2xlYW5BcmNoVGVtcGxhdGUiLCJhdWQiOiJDbGVhbkFyY2hUZW1wbGF0ZSJ9.ZsZJqf7hLTbsEiU3Lr7-gcAilJvl_4gWeIjQ0SgSzJ4
+
+{
+  "name": "Ombro médio",
+  "muscleId": "33b5553e-52b5-46c0-b542-179da17f06cf"
+}
+
+###
+
+PUT {{TrainMaster.API_HostAddress}}/api/muscle/33b5553e-52b5-46c0-b542-179da17f06cf
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjgyNTg4NTQ4LTY1OGQtNDhhMS1iMWNmLTkwY2ExMDAzZGYxMyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJKb8OjbyBTaWx2YSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6ImpvYW9AZW1haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJqdGkiOiI1NTZlNzNkNS02NTFlLTRhNTQtOWQ2ZC1mMTVkYmNkMjM2NTQiLCJuYmYiOjE3Nzg2OTU0ODQsImV4cCI6MTc3ODY5NjM4NCwiaXNzIjoiQ2xlYW5BcmNoVGVtcGxhdGUiLCJhdWQiOiJDbGVhbkFyY2hUZW1wbGF0ZSJ9.LV1Pi6ff76TBqNGkjCZcNMvlEkMTURCyqVgK1PEXgYQ
+
+{
+  "name": "Ombro"
+}
+
+

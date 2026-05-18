@@ -10,6 +10,7 @@ public class User : BaseEntity
     public string Name { get; private set; } = string.Empty;
 
     public string Email { get; private set; } = string.Empty;
+    public string Role { get; private set; } = "User";
 
     public string Password { get; private set; } = string.Empty;
     public DateTime Birthday { get; private set; }
@@ -20,7 +21,7 @@ public class User : BaseEntity
 
     private User() { } 
 
-    public static User Create(string name, string email, string password, DateTime birthday, UserGoal goal)
+    public static User Create(string name, string email, string password, DateTime birthday, UserGoal goal, string role = "User")
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentException.ThrowIfNullOrWhiteSpace(email);
@@ -38,7 +39,8 @@ public class User : BaseEntity
             Email = email,
             Password = password,
             Birthday = birthday,
-            Goal = goal
+            Goal = goal,
+            Role = role
         };
     }
 

@@ -10,7 +10,7 @@ usuario:
 - goal?
 - 
 
-exerciSE:
+Workout:
 - id
 - name
 - description

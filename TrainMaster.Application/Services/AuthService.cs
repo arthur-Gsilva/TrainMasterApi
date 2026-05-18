@@ -103,7 +103,7 @@ public class AuthService(
 
     private static AuthInternalResult BuildResult(User user, TokenResult tokens) =>
         new(
-            new AuthResponse(user.Id, user.Name, user.Email,
+            new AuthResponse(user.Id, user.Name, user.Email, user.Role,
                 tokens.AccessToken, tokens.AccessTokenExpiresAt),
             tokens.RefreshToken,
             tokens.RefreshTokenExpiresAt
