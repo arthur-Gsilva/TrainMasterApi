@@ -18,6 +18,8 @@ public class User : BaseEntity
 
     public string? RefreshToken { get; private set; }
     public DateTime? RefreshTokenExpiresAt { get; private set; }
+    public ICollection<Training> Training {get; private set; } = [];
+    public ICollection<TrainingSession> TrainingSession {get; private set; } = [];
 
     private User() { } 
 

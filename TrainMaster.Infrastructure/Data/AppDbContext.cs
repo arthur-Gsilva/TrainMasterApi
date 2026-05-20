@@ -8,6 +8,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<User> Users => Set<User>();
     public DbSet<Muscle> Muscles => Set<Muscle>();
     public DbSet<SubGroup> SubGroups => Set<SubGroup>();
+    public DbSet<Workout> Workouts => Set<Workout>();
+    public DbSet<Training> Trainings => Set<Training>();
+    public DbSet<TrainingWorkout> TrainingWorkouts => Set<TrainingWorkout>();
+    public DbSet<TrainingSession> TrainingSessions => Set<TrainingSession>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

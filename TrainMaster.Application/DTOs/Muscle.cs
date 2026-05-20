@@ -1,3 +1,5 @@
+namespace TrainMaster.Application.DTOs;
+
 public record MuscleResponse (
     Guid Id,
     string Name,

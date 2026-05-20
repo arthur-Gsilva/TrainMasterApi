@@ -8,6 +8,8 @@ public class SubGroup : BaseEntity
     public string Name { get; private set; } = string.Empty;
     public Guid MuscleId { get; private set; }
     public Muscle Muscle { get; private set; } = null!;
+    public ICollection<Workout> Workouts { get; private set; } = new List<Workout>();
+
 
     private SubGroup() {}
 

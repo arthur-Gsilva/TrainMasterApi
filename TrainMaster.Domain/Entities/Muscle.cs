@@ -6,8 +6,8 @@ namespace TrainMaster.Domain.Entities;
 public class Muscle : BaseEntity
 {
     public string Name { get; private set; } = string.Empty;
-
-    public ICollection<SubGroup> SubGroups { get; private set; } = new List<SubGroup>();
+    public ICollection<SubGroup> SubGroups { get; private set; } = [];
+    public ICollection<Workout> Workouts { get; private set; } = [];
 
 
     private Muscle() {}
