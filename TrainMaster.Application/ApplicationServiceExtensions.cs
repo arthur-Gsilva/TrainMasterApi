@@ -13,6 +13,10 @@ public static class ApplicationServiceExtensions
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IMuscleService, MuscleService>();
         services.AddScoped<ISubGroupService, SubGroupService>();
+        services.AddScoped<IWorkoutService, WorkoutService>();
+        services.AddScoped<ITrainingService, TrainingService>();
+        services.AddScoped<ITrainingWorkoutService, TrainingWorkoutService>();
+        services.AddScoped<ITrainingSessionService, TrainingSessionService>();
 
         // Registra todos os validators do assembly automaticamente
         services.AddValidatorsFromAssemblyContaining<RegisterRequestValidator>();

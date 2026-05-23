@@ -1,5 +1,6 @@
 using TrainMaster.Application.Common;
 using TrainMaster.Application.Interfaces;
+using TrainMaster.Application.DTOs;
 using TrainMaster.Domain.Entities;
 using TrainMaster.Domain.Interfaces;
 

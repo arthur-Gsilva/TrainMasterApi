@@ -65,13 +65,12 @@ public class TrainingWorkout : BaseEntity
         };
     }
 
-    public void Update(int order, int series, int reps, int weight, Guid trainingId, Guid workoutId)
+    public void Update(int order, int series, int reps, int weight, Guid workoutId)
     {
         Order = order;
         Series = series;
         Reps = reps;
         Weight = weight;
-        TrainingId = trainingId;
         WorkoutId = workoutId;
         SetUpdatedAt();
     }
@@ -101,5 +100,13 @@ public class TrainingSession : BaseEntity
             UserId = userId,
             TrainingId = trainingId  
         };
+    }
+
+    public void Update(DateTime date, int duration, Guid trainingId)
+    {
+        Date = date;
+        Duration = duration;
+        TrainingId = trainingId;
+        SetUpdatedAt();
     }
 }
