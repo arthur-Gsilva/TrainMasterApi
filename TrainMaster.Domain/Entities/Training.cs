@@ -51,8 +51,10 @@ public class TrainingWorkout : BaseEntity
     public static TrainingWorkout Create(int order, int series, int reps, int weight, Guid trainingId, Guid workoutId)
     {
 
-        ArgumentException.ThrowIfNullOrWhiteSpace(trainingId.ToString());
-        ArgumentException.ThrowIfNullOrWhiteSpace(workoutId.ToString());
+        if (trainingId == Guid.Empty)
+            throw new ArgumentException("TrainginId cannot be empty.", nameof(trainingId));
+        if (workoutId == Guid.Empty)
+            throw new ArgumentException("WOrkoutId cannot be empty.", nameof(workoutId));
 
         return new TrainingWorkout
         {
@@ -90,8 +92,8 @@ public class TrainingSession : BaseEntity
     public static TrainingSession Create(DateTime date, int duration, Guid userId, Guid trainingId)
     {
 
-        ArgumentException.ThrowIfNullOrWhiteSpace(userId.ToString());
-        ArgumentException.ThrowIfNullOrWhiteSpace(trainingId.ToString());
+        if (trainingId == Guid.Empty)
+            throw new ArgumentException("TrainginId cannot be empty.", nameof(trainingId));
 
         return new TrainingSession
         {

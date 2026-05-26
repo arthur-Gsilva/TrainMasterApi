@@ -11,7 +11,7 @@ namespace TrainMaster.Application.Services;
 
 public class WorkoutService(
     IUnitOfWork unitOfWork
-): IWorkoutService
+) : IWorkoutService
 {
     public async Task<ServiceResult<IEnumerable<WorkoutResponse>>> GetAllAsync(CancellationToken ct = default)
     {
@@ -35,11 +35,24 @@ public class WorkoutService(
         if (await unitOfWork.Workouts.NameExistsAsync(request.Name, ct))
             return ServiceResult<WorkoutResponse>.Failure("A workout with the same name already exists", 400);
 
+        var muscleExists = await unitOfWork.Muscles.ExistsAsync(m => m.Id == request.MuscleId, ct);
+        if (!muscleExists)
+            return ServiceResult<WorkoutResponse>.Failure("Muscle not found.", 404);
+
+        var subGroupExists = await unitOfWork.SubGroups.ExistsAsync(s => s.Id == request.SubGroupId, ct);
+        if (!subGroupExists)
+            return ServiceResult<WorkoutResponse>.Failure("Subgroup not found.", 404);
+
         var workout = Workout.Create(request.Name, request.Description, request.MuscleId, request.SubGroupId, request.Type, request.Url_video, request.Url_image, request.Level);
+        
         await unitOfWork.Workouts.AddAsync(workout, ct);
         await unitOfWork.CommitAsync(ct);
 
-        var response = workout.ToResponse();
+        var createdWorkout = await unitOfWork.Workouts.GetByIdAsync(workout.Id, ct);
+        if (createdWorkout == null)
+            return ServiceResult<WorkoutResponse>.Failure("Workout not found after create", 500);
+
+        var response = createdWorkout.ToResponse();
         return ServiceResult<WorkoutResponse>.Success(response);
     }
 
@@ -68,5 +81,5 @@ public class WorkoutService(
         await unitOfWork.CommitAsync(ct);
         return ServiceResult.Success();
     }
-    
+
 }

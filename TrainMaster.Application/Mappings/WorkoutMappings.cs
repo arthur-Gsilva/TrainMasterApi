@@ -11,8 +11,8 @@ public static class WorkoutMappings
             workout.Name,
             workout.Description,
             
-            workout.Muscle.Name,
-            workout.SubGroup.Name,
+            workout.Muscle?.Name ?? string.Empty,
+            workout.SubGroup?.Name ?? string.Empty,
             workout.Level,
             workout.Type,
             workout.Url_video ?? string.Empty,

@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TrainMaster.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class SubGroupController(ISubGroupService subGroupService) : ControllerBase
+public class SubGroupController(ISubGroupService subGroupService) : AppControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IEnumerable<SubGroupResponse>>(StatusCodes.Status200OK)]

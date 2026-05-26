@@ -11,8 +11,7 @@ public record TrainingResponse (
 
 public record CreateTrainingResponse(
     string Name,
-    string Description,
-    Guid UserId
+    string Description
 );
 
 public record UpdateTrainingResponse(
@@ -58,7 +57,6 @@ public record TrainingSessionResponse(
 
 public record CreateTrainingSession(
     Guid TrainingId,
-    Guid UserId,
     DateTime Date,
     int Duration
 );

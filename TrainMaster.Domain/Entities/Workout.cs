@@ -15,10 +15,10 @@ public class Workout : BaseEntity
     public string? Url_video { get; private set; }
     public string? Url_image { get; private set; }
     public WorkoutLevels Level { get; private set; } = WorkoutLevels.beginner;
-    public ICollection<TrainingWorkout> TrainingWorkout {get; private set;} = [];
+    public ICollection<TrainingWorkout> TrainingWorkout { get; private set; } = [];
 
 
-    private Workout() {}
+    private Workout() { }
 
     public static Workout Create(string name, string description, Guid muscleId, Guid subGroupId, WorkoutTypes type, string? url_video, string? url_image, WorkoutLevels level)
     {
@@ -44,8 +44,10 @@ public class Workout : BaseEntity
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentException.ThrowIfNullOrWhiteSpace(description);
-        ArgumentException.ThrowIfNullOrWhiteSpace(muscleId.ToString());
-        ArgumentException.ThrowIfNullOrWhiteSpace(subGroupId.ToString());
+        if (muscleId == Guid.Empty)
+            throw new ArgumentException("MuscleId cannot be empty.", nameof(muscleId));
+        if (subGroupId == Guid.Empty)
+            throw new ArgumentException("MuscleId cannot be empty.", nameof(subGroupId));
 
         Name = name;
         Description = description;

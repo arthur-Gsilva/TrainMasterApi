@@ -35,6 +35,10 @@ public class SubGroupService(
         if (nameExists)
             return ServiceResult<SubGroupResponse>.Failure($"A Muscle with name '{request.Name}' already exists.");
 
+        var muscleExists = await unitOfWork.Muscles.ExistsAsync(m => m.Id == request.MuscleId, ct);
+        if (!muscleExists)
+            return ServiceResult<SubGroupResponse>.Failure("Muscle not found.", 404);
+
         var subGroup = SubGroup.Create(request.Name, request.MuscleId);
         await unitOfWork.SubGroups.AddAsync(subGroup, ct);
         await unitOfWork.CommitAsync(ct);

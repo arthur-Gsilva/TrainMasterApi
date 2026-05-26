@@ -7,7 +7,7 @@ public interface ITrainingService
 {
     Task<ServiceResult<IEnumerable<TrainingResponse>>> GetAllAsync(CancellationToken ct = default);
     Task<ServiceResult<TrainingResponse>> GetByIdAsync(Guid id, CancellationToken ct = default);
-    Task<ServiceResult<TrainingResponse>> CreateAsync(CreateTrainingResponse request, CancellationToken ct = default);
+    Task<ServiceResult<TrainingResponse>> CreateAsync(Guid UserId, CreateTrainingResponse request, CancellationToken ct = default);
     Task<ServiceResult<TrainingResponse>> UpdateAsync(Guid id, UpdateTrainingResponse request, CancellationToken ct = default);
     Task<ServiceResult> DeleteAsync(Guid id, CancellationToken ct = default);
 }
@@ -25,7 +25,7 @@ public interface ITrainingSessionService
 {
     Task<ServiceResult<IEnumerable<TrainingSessionResponse>>> GetAllAsync(CancellationToken ct = default);
     Task<ServiceResult<TrainingSessionResponse>> GetByIdAsync(Guid id, CancellationToken ct = default);
-    Task<ServiceResult<TrainingSessionResponse>> CreateAsync(CreateTrainingSession request, CancellationToken ct = default);
+    Task<ServiceResult<TrainingSessionResponse>> CreateAsync(Guid UserId, CreateTrainingSession request, CancellationToken ct = default);
     Task<ServiceResult<TrainingSessionResponse>> UpdateAsync(Guid id, UpdateTrainingSession request, CancellationToken ct = default);
     Task<ServiceResult> DeleteAsync(Guid id, CancellationToken ct = default);
 }

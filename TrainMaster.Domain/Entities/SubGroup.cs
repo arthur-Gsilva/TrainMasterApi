@@ -16,7 +16,8 @@ public class SubGroup : BaseEntity
     public static SubGroup Create(string name, Guid muscleId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
-        ArgumentException.ThrowIfNullOrWhiteSpace(muscleId.ToString());
+        if (muscleId == Guid.Empty)
+            throw new ArgumentException("MuscleId cannot be empty.", nameof(muscleId));
 
         return new SubGroup
         {

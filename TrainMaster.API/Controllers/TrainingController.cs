@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TrainMaster.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
 
-public class TrainingController(ITrainingService trainingService) : ControllerBase
+public class TrainingController(ITrainingService trainingService) : AppControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IEnumerable<TrainingResponse>>(StatusCodes.Status200OK)]
@@ -31,7 +32,7 @@ public class TrainingController(ITrainingService trainingService) : ControllerBa
     [ProducesResponseType<IEnumerable<TrainingResponse>>(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateTrainingResponse request, CancellationToken ct)
     {
-        var result = await trainingService.CreateAsync(request, ct);
+        var result = await trainingService.CreateAsync(CurrentUserId, request, ct);
         return Ok(result.Data);
     }
 
@@ -44,10 +45,11 @@ public class TrainingController(ITrainingService trainingService) : ControllerBa
     }
 }
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class TrainingWorkoutController(ITrainingWorkoutService trainingWorkoutService) : ControllerBase
+public class TrainingWorkoutController(ITrainingWorkoutService trainingWorkoutService) : AppControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IEnumerable<TrainingWorkoutResponse>>(StatusCodes.Status200OK)]
@@ -82,10 +84,11 @@ public class TrainingWorkoutController(ITrainingWorkoutService trainingWorkoutSe
     }
 }
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class TrainingSessionController(ITrainingSessionService trainingSessionService) : ControllerBase
+public class TrainingSessionController(ITrainingSessionService trainingSessionService) : AppControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IEnumerable<TrainingSessionResponse>>(StatusCodes.Status200OK)]
@@ -107,7 +110,7 @@ public class TrainingSessionController(ITrainingSessionService trainingSessionSe
     [ProducesResponseType<IEnumerable<TrainingSessionResponse>>(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody] CreateTrainingSession request, CancellationToken ct)
     {
-        var result = await trainingSessionService.CreateAsync(request, ct);
+        var result = await trainingSessionService.CreateAsync(CurrentUserId, request, ct);
         return Ok(result.Data);
     }
 

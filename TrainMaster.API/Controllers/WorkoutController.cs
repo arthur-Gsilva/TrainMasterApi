@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TrainMaster.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
-public class WorkoutController(IWorkoutService workoutService) : ControllerBase
+public class WorkoutController(IWorkoutService workoutService) : AppControllerBase
 {
     [HttpGet]
     [ProducesResponseType<IEnumerable<WorkoutResponse>>(StatusCodes.Status200OK)]

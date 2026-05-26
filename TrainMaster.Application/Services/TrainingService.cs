@@ -30,9 +30,9 @@ public class TrainingService(
         return ServiceResult<TrainingResponse>.Success(response);
     }
 
-    public async Task<ServiceResult<TrainingResponse>> CreateAsync(CreateTrainingResponse request, CancellationToken ct = default)
+    public async Task<ServiceResult<TrainingResponse>> CreateAsync(Guid userId, CreateTrainingResponse request, CancellationToken ct = default)
     {
-        var training = Training.Create(request.Name, request.Description, request.UserId);
+        var training = Training.Create(request.Name, request.Description, userId);
         await unitOfWork.Trainings.AddAsync(training, ct);
         await unitOfWork.CommitAsync(ct);
 
@@ -89,6 +89,15 @@ public class TrainingWorkoutService(
 
     public async Task<ServiceResult<TrainingWorkoutResponse>> CreateAsync(CreateTrainingWorkout request, CancellationToken ct = default)
     {
+
+        var workoutExists = await unitOfWork.Workouts.ExistsAsync(w => w.Id == request.WorkoutId, ct);
+        if (!workoutExists)
+            return ServiceResult<TrainingWorkoutResponse>.Failure("Workout not found.", 404);
+
+        var subGroupExists = await unitOfWork.Trainings.ExistsAsync(t => t.Id == request.TrainingId, ct);
+        if (!subGroupExists)
+            return ServiceResult<TrainingWorkoutResponse>.Failure("training not found.", 404);
+        
         var training = TrainingWorkout.Create(request.Order, request.Series, request.Reps, request.Weight, request.TrainingId, request.WorkoutId);
         await unitOfWork.TrainingWorkouts.AddAsync(training, ct);
         await unitOfWork.CommitAsync(ct);
@@ -105,19 +114,19 @@ public class TrainingWorkoutService(
     {
         var training = await unitOfWork.TrainingWorkouts.GetByIdAsync(id, ct);
         if (training == null)
-            return ServiceResult<TrainingWorkoutResponse>.Failure("Treino não encontrado", 404);
+            return ServiceResult<TrainingWorkoutResponse>.Failure("Training not found", 404);
 
         training.Update(request.Order, request.Series, request.Reps, request.Weight, request.WorkoutId);
         await unitOfWork.CommitAsync(ct);
-        var response = training.ToResponse();
-        return ServiceResult<TrainingWorkoutResponse>.Success(response);
+        var updated = await unitOfWork.TrainingWorkouts.GetByIdAsync(id, ct);
+        return ServiceResult<TrainingWorkoutResponse>.Success(updated!.ToResponse());
     }
 
     public async Task<ServiceResult> DeleteAsync(Guid id, CancellationToken ct = default)
     {
         var TW = await unitOfWork.TrainingWorkouts.GetByIdAsync(id, ct);
         if (TW is null)
-            return ServiceResult.NotFound($"Treino com com '{id}' Não encontrado.");
+            return ServiceResult.NotFound($"Traingin with id '{id}' Not found.");
 
         unitOfWork.TrainingWorkouts.Delete(TW);
         await unitOfWork.CommitAsync(ct);
@@ -141,15 +150,19 @@ public class TrainingSessionService(
     {
         var training = await unitOfWork.TrainingSessions.GetByIdAsync(id, ct);
         if (training == null)
-            return ServiceResult<TrainingSessionResponse>.Failure("Treino não encontrado", 404);
+            return ServiceResult<TrainingSessionResponse>.Failure("Training not found", 404);
 
         var response = training.ToResponse();
         return ServiceResult<TrainingSessionResponse>.Success(response);
     }
 
-    public async Task<ServiceResult<TrainingSessionResponse>> CreateAsync(CreateTrainingSession request, CancellationToken ct = default)
+    public async Task<ServiceResult<TrainingSessionResponse>> CreateAsync(Guid UserId, CreateTrainingSession request, CancellationToken ct = default)
     {
-        var session = TrainingSession.Create(request.Date, request.Duration, request.UserId, request.TrainingId);
+        var subGroupExists = await unitOfWork.Trainings.ExistsAsync(t => t.Id == request.TrainingId, ct);
+        if (!subGroupExists)
+            return ServiceResult<TrainingSessionResponse>.Failure("Training not found.", 404);
+
+        var session = TrainingSession.Create(request.Date, request.Duration, UserId, request.TrainingId);
         await unitOfWork.TrainingSessions.AddAsync(session, ct);
         await unitOfWork.CommitAsync(ct);
 
@@ -164,7 +177,7 @@ public class TrainingSessionService(
     {
         var training = await unitOfWork.TrainingSessions.GetByIdAsync(id, ct);
         if (training == null)
-            return ServiceResult<TrainingSessionResponse>.Failure("Treino não encontrado", 404);
+            return ServiceResult<TrainingSessionResponse>.Failure("Training not found", 404);
 
         training.Update(request.Date, request.Duration, request.TrainingId);
         await unitOfWork.CommitAsync(ct);
@@ -176,7 +189,7 @@ public class TrainingSessionService(
     {
         var TS = await unitOfWork.TrainingSessions.GetByIdAsync(id, ct);
         if (TS is null)
-            return ServiceResult.NotFound($"Treino com com '{id}' Não encontrado.");
+            return ServiceResult.NotFound($"Training with id '{id}' not found.");
 
         unitOfWork.TrainingSessions.Delete(TS);
         await unitOfWork.CommitAsync(ct);
