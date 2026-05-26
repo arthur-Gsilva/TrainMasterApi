@@ -1,11 +1,17 @@
 using TrainMaster.Application;
 using TrainMaster.Infrastructure;
 using TrainMaster.API.Middleware;
+using System.Text.Json.Serialization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ── Services ────────────────────────────────────────────────────────────────
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddOpenApi();
 
 builder.Services.AddApplicationServices();

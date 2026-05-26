@@ -61,7 +61,7 @@ public class TrainingWorkout : BaseEntity
             Reps = reps,
             Weight = weight,
             TrainingId = trainingId,
-            WorkoutId = workoutId
+            WorkoutId = workoutId,
         };
     }
 

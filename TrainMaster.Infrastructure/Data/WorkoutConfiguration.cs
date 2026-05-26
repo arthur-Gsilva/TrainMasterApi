@@ -32,5 +32,15 @@ public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
         builder.Property(w => w.Type)
             .HasConversion<string>()
             .IsRequired();
+
+        builder.Property(w => w.Level)
+            .HasConversion<string>()
+            .IsRequired();
+
+        builder.Property(w => w.Url_video)
+            .HasMaxLength(200).IsRequired(false);
+
+        builder.Property(w => w.Url_image)
+            .HasMaxLength(200).IsRequired(false);
     }
 }

@@ -2,7 +2,6 @@ using TrainMaster.Application.DTOs;
 using TrainMaster.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace TrainMaster.API.Controllers;
 

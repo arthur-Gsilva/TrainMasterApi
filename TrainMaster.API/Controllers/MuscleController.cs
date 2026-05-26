@@ -2,7 +2,6 @@ using TrainMaster.Application.DTOs;
 using TrainMaster.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace TrainMaster.API.Controllers;
 
@@ -28,7 +27,7 @@ public class MuscleController(IMuscleService muscleService) : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]     // apenas Admins criam produtos
+    [Authorize(Roles = "Admin")]    
     [ProducesResponseType<IEnumerable<MuscleResponse>>(StatusCodes.Status201Created)]
     public async Task<IActionResult> Create([FromBody]CreateMuscleRequest request, CancellationToken ct)
     {
@@ -37,7 +36,7 @@ public class MuscleController(IMuscleService muscleService) : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    [Authorize(Roles = "Admin")]     // apenas Admins criam produtos
+    [Authorize(Roles = "Admin")]   
     [ProducesResponseType<IEnumerable<MuscleResponse>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateMuscleRequest request, CancellationToken ct)
     {

@@ -15,8 +15,8 @@ public static class WorkoutMappings
             workout.SubGroup.Name,
             workout.Level,
             workout.Type,
-            workout.Url_video,
-            workout.Url_image,
+            workout.Url_video ?? string.Empty,
+            workout.Url_image ?? string.Empty,
             workout.CreatedAt,
             workout.UpdatedAt
         );

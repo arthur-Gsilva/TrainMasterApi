@@ -10,10 +10,10 @@ public class Repository<T>(AppDbContext context) : IRepository<T> where T : Base
 {
     protected readonly DbSet<T> _dbSet = context.Set<T>();
 
-    public async Task<T?> GetByIdAsync(Guid id, CancellationToken ct = default) =>
+    public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken ct = default) =>
         await _dbSet.FindAsync([id], ct);
 
-    public async Task<IEnumerable<T>> GetAllAsync(CancellationToken ct = default) =>
+    public virtual async Task<IEnumerable<T>> GetAllAsync(CancellationToken ct = default) =>
         await _dbSet.AsNoTracking().ToListAsync(ct);
 
     public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate, CancellationToken ct = default) =>

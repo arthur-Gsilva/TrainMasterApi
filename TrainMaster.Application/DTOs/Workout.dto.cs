@@ -9,8 +9,8 @@ public record WorkoutResponse (
     string SubGroup,
     WorkoutLevels Level,
     WorkoutTypes Type,
-    string Url_video,
-    string Url_image,
+    string? Url_video,
+    string? Url_image,
     DateTime CreatedAt,
     DateTime? UpdatedAt
 );
@@ -21,8 +21,8 @@ public record CreateWorkoutRequest(
     Guid MuscleId,
     Guid SubGroupId,
     WorkoutTypes Type,
-    string Url_video,
-    string Url_image,
+    string? Url_video,
+    string? Url_image,
     WorkoutLevels Level
 );
 
@@ -32,7 +32,7 @@ public record UpdateWorkoutRequest(
     Guid MuscleId,
     Guid SubGroupId,
     WorkoutTypes Type,
-    string Url_video,
-    string Url_image,
+    string? Url_video,
+    string? Url_image,
     WorkoutLevels Level
 );

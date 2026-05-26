@@ -12,22 +12,20 @@ public class Workout : BaseEntity
     public Guid SubGroupId { get; private set; }
     public SubGroup SubGroup { get; private set; } = null!;
     public WorkoutTypes Type { get; private set; } = WorkoutTypes.bodybuilding;
-    public string Url_video { get; private set; } = string.Empty;
-    public string Url_image { get; private set; } = string.Empty;
+    public string? Url_video { get; private set; }
+    public string? Url_image { get; private set; }
     public WorkoutLevels Level { get; private set; } = WorkoutLevels.beginner;
     public ICollection<TrainingWorkout> TrainingWorkout {get; private set;} = [];
 
 
     private Workout() {}
 
-    public static Workout Create(string name, string description, Guid muscleId, Guid subGroupId, WorkoutTypes type, string url_video, string url_image, WorkoutLevels level)
+    public static Workout Create(string name, string description, Guid muscleId, Guid subGroupId, WorkoutTypes type, string? url_video, string? url_image, WorkoutLevels level)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentException.ThrowIfNullOrWhiteSpace(description);
         ArgumentException.ThrowIfNullOrWhiteSpace(muscleId.ToString());
         ArgumentException.ThrowIfNullOrWhiteSpace(subGroupId.ToString());
-        ArgumentException.ThrowIfNullOrWhiteSpace(url_video);
-        ArgumentException.ThrowIfNullOrWhiteSpace(url_image);
 
         return new Workout
         {
@@ -42,14 +40,12 @@ public class Workout : BaseEntity
         };
     }
 
-    public void Update(string name, string description, Guid muscleId, Guid subGroupId, WorkoutTypes type, string url_video, string url_image, WorkoutLevels level)
+    public void Update(string name, string description, Guid muscleId, Guid subGroupId, WorkoutTypes type, string? url_video, string? url_image, WorkoutLevels level)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(name);
         ArgumentException.ThrowIfNullOrWhiteSpace(description);
         ArgumentException.ThrowIfNullOrWhiteSpace(muscleId.ToString());
         ArgumentException.ThrowIfNullOrWhiteSpace(subGroupId.ToString());
-        ArgumentException.ThrowIfNullOrWhiteSpace(url_video);
-        ArgumentException.ThrowIfNullOrWhiteSpace(url_image);
 
         Name = name;
         Description = description;

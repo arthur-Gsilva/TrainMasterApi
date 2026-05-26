@@ -89,11 +89,15 @@ public class TrainingWorkoutService(
 
     public async Task<ServiceResult<TrainingWorkoutResponse>> CreateAsync(CreateTrainingWorkout request, CancellationToken ct = default)
     {
-        var training = TrainingWorkout.Create(request.Reps, request.Weight,  request.Order, request.Series, request.TrainingId, request.WorkoutId);
+        var training = TrainingWorkout.Create(request.Order, request.Series, request.Reps, request.Weight, request.TrainingId, request.WorkoutId);
         await unitOfWork.TrainingWorkouts.AddAsync(training, ct);
         await unitOfWork.CommitAsync(ct);
 
-        var response = training.ToResponse();
+        var created = await unitOfWork.TrainingWorkouts.GetByIdAsync(training.Id, ct);
+        if (created == null)
+            return ServiceResult<TrainingWorkoutResponse>.Failure("TrainingWorkout not found after create", 500);
+
+        var response = created.ToResponse();
         return ServiceResult<TrainingWorkoutResponse>.Success(response);
     }
 
@@ -124,7 +128,7 @@ public class TrainingWorkoutService(
 
 public class TrainingSessionService(
     IUnitOfWork unitOfWork
-): ITrainingSessionService
+) : ITrainingSessionService
 {
     public async Task<ServiceResult<IEnumerable<TrainingSessionResponse>>> GetAllAsync(CancellationToken ct = default)
     {
@@ -145,12 +149,15 @@ public class TrainingSessionService(
 
     public async Task<ServiceResult<TrainingSessionResponse>> CreateAsync(CreateTrainingSession request, CancellationToken ct = default)
     {
-        var training = TrainingSession.Create(request.Date, request.Duration, request.UserId, request.TrainingId);
-        await unitOfWork.TrainingSessions.AddAsync(training, ct);
+        var session = TrainingSession.Create(request.Date, request.Duration, request.UserId, request.TrainingId);
+        await unitOfWork.TrainingSessions.AddAsync(session, ct);
         await unitOfWork.CommitAsync(ct);
 
-        var response = training.ToResponse();
-        return ServiceResult<TrainingSessionResponse>.Success(response);
+        var created = await unitOfWork.TrainingSessions
+            .GetByIdAsync(session.Id, ct);
+
+        return ServiceResult<TrainingSessionResponse>
+            .Success(created!.ToResponse(), 201);
     }
 
     public async Task<ServiceResult<TrainingSessionResponse>> UpdateAsync(Guid id, UpdateTrainingSession request, CancellationToken ct = default)
